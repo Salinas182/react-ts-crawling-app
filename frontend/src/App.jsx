@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './views/Login';
 import Register from './views/Register';
 import Home from './views/Home';
-import NavBar from './components/navBar';
+import CrawlingJobDetails from './views/CrawlingJobDetails';
+import NavBar from './components/NavBar';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/jobs/:jobId" element={<CrawlingJobDetails />} />
         </Routes>
       </div>
     </Router>

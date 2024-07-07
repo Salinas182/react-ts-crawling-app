@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Crawler = () => {
   const [jobs, setJobs] = useState([]);
@@ -41,6 +42,21 @@ const Crawler = () => {
     }
   };
 
+  const handleStartCrawling = async (jobId) => {
+    try {
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/jobs/${jobId}/start`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+  
+      const updatedJobs = jobs.map(job =>
+        job._id === jobId ? { ...job, status: data.status } : job
+      );
+      setJobs(updatedJobs);
+    } catch (error) {
+      console.error('Error starting crawling:', error);
+    }
+  };
+
   return (
     <div>
       <input
@@ -53,13 +69,27 @@ const Crawler = () => {
         onClick={handleCreateJob}
         disabled={!targetUrl.trim()}
       >
-        Crawl this URL
+        Create crawling job for this URL
       </button>
 
       {jobs?.length > 0 && (
         <ul>
           {jobs.map((job) => (
-            <li key={job._id}>{job.targetUrl}</li>
+            <li key={job._id}>
+              <Link to={`/jobs/${job._id}`} style={{marginRight: '5px'}}>
+                {job.targetUrl}
+              </Link>
+              <span>
+                - Status: {job.status}
+              </span>
+              <button
+                onClick={() => handleStartCrawling(job._id)}
+                disabled={job.status !== 'pending'}
+                style={{marginLeft: '5px'}}
+              >
+                Start Crawling
+              </button>
+            </li>
           ))}
         </ul>
       )}

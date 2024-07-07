@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
-interface ICrawlerJob extends Document {
+export interface ICrawlerJob extends Document {
   userId: string;
   targetUrl: string;
   status: 'pending' | 'in-progress' | 'completed';
