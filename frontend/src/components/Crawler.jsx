@@ -35,6 +35,7 @@ const Crawler = () => {
         }
       );
       setJobs([...jobs, data]);
+      setTargetUrl('');
     } catch (error) {
       console.error('Error creating job:', error);
     }
@@ -42,14 +43,18 @@ const Crawler = () => {
 
   return (
     <div>
-      <h1>Crawler</h1>
       <input
         type="text"
         value={targetUrl}
         onChange={(e) => setTargetUrl(e.target.value)}
         placeholder="https://elpais.com"
       />
-      <button onClick={handleCreateJob}>Crawl this URL</button>
+      <button
+        onClick={handleCreateJob}
+        disabled={!targetUrl.trim()}
+      >
+        Crawl this URL
+      </button>
 
       {jobs?.length > 0 && (
         <ul>
