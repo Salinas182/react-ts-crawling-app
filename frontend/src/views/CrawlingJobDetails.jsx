@@ -29,6 +29,7 @@ const CrawlingJobDetails = () => {
     return <p>Loading...</p>;
   }
 
+  const totalUrls = job.foundUrls.length;
   const indexOfLastUrl = currentPage * urlsPerPage;
   const indexOfFirstUrl = indexOfLastUrl - urlsPerPage;
   const currentUrls = job.foundUrls.slice(indexOfFirstUrl, indexOfLastUrl);
@@ -37,9 +38,11 @@ const CrawlingJobDetails = () => {
 
   return (
     <div>
-      <h1>Crawling Job Details</h1>
-      <p>Target URL: {job.targetUrl}</p>
-      <h2>Found URLs:</h2>
+      <div style={{ marginLeft: '10px' }}>
+        <h1>Crawling Job Details</h1>
+        <p>Target URL: {job.targetUrl}</p>
+        <h2>Found {totalUrls} URLs:</h2>
+      </div>
       <div style={{ maxWidth: '95%', overflowX: 'auto' }}>
         <ul>
           {currentUrls.map((url, index) => (
@@ -49,9 +52,10 @@ const CrawlingJobDetails = () => {
           ))}
         </ul>
       </div>
+      
       <Pagination
         urlsPerPage={urlsPerPage}
-        totalUrls={job.foundUrls.length}
+        totalUrls={totalUrls}
         paginate={paginate}
         currentPage={currentPage}
       />

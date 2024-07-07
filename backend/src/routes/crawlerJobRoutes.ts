@@ -7,6 +7,6 @@ const router = express.Router();
 router.post('/', verifyToken, createCrawlerJob);
 router.get('/', verifyToken, getCrawlerJobs);
 router.get('/:jobId', verifyToken, getJobStatus);
-router.get('/:jobId/start', verifyToken, startCrawling);
+router.post('/:jobId/start', verifyToken, startCrawling);
 
 export default router;

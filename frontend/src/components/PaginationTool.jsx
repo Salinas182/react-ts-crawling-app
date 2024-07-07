@@ -11,9 +11,21 @@ const Pagination = ({ urlsPerPage, totalUrls, paginate, currentPage }) => {
   const endPage = Math.min(startPage + maxPageButtons - 1, totalPages);
   const visiblePages = pageNumbers.slice(startPage - 1, endPage);
 
+  const goToFirstPage = () => paginate(1);
+  const goToLastPage = () => paginate(totalPages);
+
   return (
     <nav>
       <ul style={styles.pagination}>
+        <li style={styles.pageItem}>
+          <button
+            onClick={goToFirstPage}
+            style={styles.pageLink}
+            disabled={currentPage === 1}
+          >
+            First
+          </button>
+        </li>
         <li style={styles.pageItem}>
           <button
             onClick={() => paginate(currentPage - 1)}
@@ -49,6 +61,15 @@ const Pagination = ({ urlsPerPage, totalUrls, paginate, currentPage }) => {
             Next
           </button>
         </li>
+        <li style={styles.pageItem}>
+          <button
+            onClick={goToLastPage}
+            style={styles.pageLink}
+            disabled={currentPage === totalPages}
+          >
+            Last
+          </button>
+        </li>
       </ul>
     </nav>
   );
@@ -60,6 +81,7 @@ const styles = {
     justifyContent: 'center',
     listStyle: 'none',
     padding: 0,
+    flexWrap: 'wrap',
   },
   pageItem: {
     margin: '0 5px',
@@ -71,6 +93,7 @@ const styles = {
     color: '#007bff',
     cursor: 'pointer',
     backgroundColor: '#fff',
+    marginBottom: '5px',
   },
   pageLinkActive: {
     backgroundColor: '#007bff',

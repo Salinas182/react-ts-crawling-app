@@ -12,7 +12,7 @@ const Home = () => {
 
   return (
     <div>
-      <h1>Crawler</h1>
+      <h1 style={{ marginLeft: '10px' }}>Crawler</h1>
 
       {isLoggedIn && (
         <Crawler />

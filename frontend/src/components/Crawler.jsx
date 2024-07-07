@@ -44,7 +44,7 @@ const Crawler = () => {
 
   const handleStartCrawling = async (jobId) => {
     try {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/jobs/${jobId}/start`, {
+      const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/api/jobs/${jobId}/start`, {
         headers: { Authorization: `Bearer ${token}` },
       });
   
@@ -64,12 +64,13 @@ const Crawler = () => {
         value={targetUrl}
         onChange={(e) => setTargetUrl(e.target.value)}
         placeholder="https://elpais.com"
+        style={{ marginLeft: '10px' }}
       />
       <button
         onClick={handleCreateJob}
         disabled={!targetUrl.trim()}
       >
-        Create crawling job for this URL
+        Create a crawling job for this URL
       </button>
 
       {jobs?.length > 0 && (
@@ -78,6 +79,7 @@ const Crawler = () => {
             <li key={job._id}>
               <Link to={`/jobs/${job._id}`} style={{marginRight: '5px'}}>
                 {job.targetUrl}
+                <span style={{ fontSize: '12px', marginLeft: '5px', color: '#777' }}>View job details</span>
               </Link>
               <span>
                 - Status: {job.status}
