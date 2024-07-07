@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import userRoutes from './routes/userRoutes';
+import crawlerJobRoutes from './routes/crawlerJobRoutes';
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGOD
   .catch(err => console.error(err));
 
 app.use('/api/users', userRoutes);
+app.use('/api/jobs', crawlerJobRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
